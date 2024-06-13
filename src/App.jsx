@@ -10,10 +10,14 @@ const App = () => {
   }, []);
 
   const getTasks = async () => {
-    const response = await databases.listDocuments(DB_ID, COLLECTION_ID);
+    try {
+      const response = await databases.listDocuments(DB_ID, COLLECTION_ID);
 
-    console.log(response);
-    setTasks(response.documents);
+      console.log(response);
+      setTasks(response.documents);
+    } catch (error) {
+      console.error("Failed to fetch tasks", error);
+    }
   };
 
   const handleInput = (e) => {
@@ -24,17 +28,19 @@ const App = () => {
     e.preventDefault();
 
     if (taskText) {
-      await databases.createDocument(DB_ID, COLLECTION_ID, ID.unique(), {
-        text: taskText,
-      });
+      try {
+        await databases.createDocument(DB_ID, COLLECTION_ID, ID.unique(), {
+          task: taskText,
+          completed: false,
+        });
 
-      setTaskText("");
-
-      getTasks();
+        setTaskText("");
+        getTasks();
+      } catch (error) {
+        console.error("Failed to ass task", error);
+      }
     }
   };
-
-  getTasks();
 
   return (
     <main className="max-w-3xl w-full mx-auto">
