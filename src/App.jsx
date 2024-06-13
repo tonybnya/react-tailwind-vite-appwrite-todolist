@@ -37,8 +37,20 @@ const App = () => {
         setTaskText("");
         getTasks();
       } catch (error) {
-        console.error("Failed to ass task", error);
+        console.error("Failed to add the task", error);
       }
+    }
+  };
+
+  const updateTask = async (id, completed) => {
+    try {
+      await databases.updateDocument(DB_ID, COLLECTION_ID, id, {
+        completed: completed,
+      });
+
+      getTasks();
+    } catch (error) {
+      console.error("Failed to update the task", error);
     }
   };
 
@@ -68,9 +80,10 @@ const App = () => {
             <span>{task.completed ? "✅" : "❌"}</span>
             {task.task}
             <input
+              className="ml-auto"
               type="checkbox"
               checked={task.completed}
-              className="ml-auto"
+              onChange={() => updateTask(task.$id, task.completed)}
             />
           </li>
         ))}
