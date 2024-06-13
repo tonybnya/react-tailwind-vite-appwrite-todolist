@@ -54,6 +54,16 @@ const App = () => {
     }
   };
 
+  const deleteTask = async (id) => {
+    try {
+      await databases.deleteDocument(DB_ID, COLLECTION_ID, id);
+
+      getTasks();
+    } catch (error) {
+      console.error("Failed to delete the task", error);
+    }
+  };
+
   return (
     <main className="max-w-3xl w-full mx-auto">
       <form className="flex flex-col gap-4 my-6" onSubmit={addTask}>
@@ -85,7 +95,10 @@ const App = () => {
               checked={task.completed}
               onChange={() => updateTask(task.$id, !task.completed)}
             />
-            <button>
+            <button
+              className="text-red-500 transition hover:text-red-900"
+              onClick={() => deleteTask(task.$id)}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
