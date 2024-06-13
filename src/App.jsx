@@ -80,10 +80,10 @@ const App = () => {
             <span>{task.completed ? "✅" : "❌"}</span>
             {task.task}
             <input
-              className="ml-auto"
+              className="ml-auto cursor-pointer"
               type="checkbox"
               checked={task.completed}
-              onChange={() => updateTask(task.$id, task.completed)}
+              onChange={() => updateTask(task.$id, !task.completed)}
             />
           </li>
         ))}
