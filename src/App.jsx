@@ -14,7 +14,7 @@ const App = () => {
       const response = await databases.listDocuments(DB_ID, COLLECTION_ID);
 
       console.log(response);
-      setTasks(response.documents);
+      setTasks(response.documents.reverse());
     } catch (error) {
       console.error("Failed to fetch tasks", error);
     }
