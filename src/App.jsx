@@ -56,10 +56,10 @@ const App = () => {
       <ul className="space-y-4">
         {tasks.map((task) => (
           <li
-            className="flex items-center border border-white/20 p-4 rounded shadow gap-2"
             key={task.$id}
+            className="flex items-center border border-white/20 p-4 rounded shadow gap-2"
           >
-            <span>{task.comleted ? "✅" : null}</span>
+            <span>{task.completed ? "✅" : "❌"}</span>
             {task.task}
           </li>
         ))}
