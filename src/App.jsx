@@ -67,6 +67,11 @@ const App = () => {
           >
             <span>{task.completed ? "✅" : "❌"}</span>
             {task.task}
+            <input
+              type="checkbox"
+              checked={task.completed}
+              className="ml-auto"
+            />
           </li>
         ))}
       </ul>
